@@ -1,6 +1,6 @@
 # Sefia-AI
 A MIT licensed personal AI agent that hooks Ollama to use *local* and *cloud* models to run. 
-
+You must have ollama installed -- no need for it to already be running the CLI does that for you.
 **What is it**
 Sefia is an AI agent inspired by a certain city (https://thebrokenrealm.net) in a *certain* book. 
 The software is MIT licensed, meaning, any content Sefia generates is yours to keep **even for commercial use** 
