@@ -6,7 +6,7 @@ Sefia is an AI agent inspired by a certain city (https://thebrokenrealm.net) in 
 The software is MIT licensed, meaning, any content Sefia generates is yours to keep **even for commercial use** 
 
 **How to use**
-first, download the *main.py* or the .deb on linux (install it!) file and run it in a python interpreter. You will be prompted to enter your choice: Local or Cloud. local will download your selected model. Cloud will serve your selected model.
+first, download the code as a zip extract it and run main.py file and run it in a python interpreter. You will be prompted to enter your choice: Local or Cloud. local will download your selected model. Cloud will serve your selected model.
 Note:
 you must be signed in to use Cloud use (https://ollama.com) to sign in/up *its free* 
 
