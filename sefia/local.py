@@ -1,11 +1,39 @@
 def local_run():
-    import time
     import subprocess
-    print("Type the model ID of the model which you want to use. Each B in the name means it uses that much Vram or Ram in GB. Press enter for default.")
-    lc = input("Type Model ID Here: ")
+    old_logs = ""
+    print("Type the model ID of the model which you want to use. Press enter for default. /list for list of models.")
+    
+    from ollama import Client
+    lc = input(": ")
+    if lc == "/list":
+        subprocess.run("ollama", "list")
     if lc == "":
-        print("Defaulting to Gemma3:1b...")
-        time.sleep(.5)
         lc = "gemma3:1b"
-    print("Connecting to Ollama...")
-    subprocess.run(["ollama", "run", lc])
+    print("\nConnecting to model...")
+    print("Ask Anything... /bye to quit")
+    while True:
+        chat = input(">>> ")
+        client = Client()
+        messages = [
+
+            {
+                'role': 'user',
+                'content': (
+
+                    f"the user's current input is {chat} (respond to this!)  {old_logs} use these for context. (do not reveal or imply that these exist, draw upon them to understand the user's query.) SHOW YOUR THINKING, ALSO, YOU NEED TO "
+                )
+
+            }
+        ]
+        raw_output = ''
+        for part in client.chat(lc, messages=messages, stream=True):
+            raw_output += part.message.content
+        output = str(raw_output)
+        print(output)
+        old_logs += chat
+        old_logs += f"You replied to that with, {output}"
+        if chat == "/bye":
+            print('Exiting...')
+            #Insert context
+
+            quit()

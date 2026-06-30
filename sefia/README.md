@@ -1,0 +1,100 @@
+## Sefia AI 
+
+```ASCII   
+          _[_[ [ [ [_     
+         /-----------\     
+        /-------------\
+       /| {}    {}    | \
+     / /|             | \ \
+    / / | #  (<>)  #  |  \ \
+   ( )  |             |   ( )
+          | | | | | | 
+           | | | | | | 
+          ()()()()()()
+    # Sefia the Octopus
+
+        
+```
+
+```markdown
+Note: 
+Sefia is unfinished, and currently under active devolopment. 
+See contributing.md for more info.
+```
+
+
+## About
+This journey started when I read a book by [Micheal Somerville](https://thebrokenrealm.net). I am a *beta* reader for his series *The Tales of the Broken Realm*, while I was reading the **second** book, I learned that Mr. Somerville had included a city called *Sefia* (Rules are made for fools) and, later that month (I believe it was April, when I was still on Windows. ) I began coding. It was always going to be an Open-Source project (Although my original plan was to write my own license, which would have not been an open-source project, I wasn't even sure I was going to distrobute the source code for some reason. *I clearly had no clue what open-source was*).
+On Windows the project didn't make it anywhere, but when I switched to [Linux](ubuntu.com) I picked the project back up, and here I am! 
+
+## Prerequisites
+Git
+```bash
+#Linux
+sudo apt install git
+```
+[Ollama](https://ollama.com)
+
+[Python 3](https://python.org)
+```bash
+#Linux
+sudo apt install python3-full
+```
+
+## How to use
+Clone the repository:
+```bash
+git clone https://github.com/camdencarr84/sefia-ai
+cd sefia-ai
+```
+
+Pull an Ollama model
+```bash
+#Pulls a model from Ollama's registry
+ollama pull qwen2.5-coder:1.5b
+```
+
+Create a Virtual Environment:
+```bash
+#Mac/Linux
+python3 -m venv venv
+source venv/bin/activate
+```
+```
+#Windows
+python -m venv venv
+source venv/bin/activate
+```
+Install dependencies.
+
+```bash
+#PIP3 might be needed it can be annoying to get to work on Windows
+pip install -r requirements.txt 
+```
+Run the file:
+```bash
+python3 main.py 
+```
+To use Terminal you will need to fill in these lines in the terminal.py. Debian Linux ONLY!
+```python
+user_os = "YOUR_OS_HERE"
+
+password = "YOUR_PASSWORD_HERE"
+```
+
+NOTE:
+
+Local models do not support context history as smaller ones will usually have a small context window. If you have a high-end PC add these lines to lines 38-39 of local.py
+```python
+with open ("history.txt", "a") as h:
+                h.write(old_logs)
+```
+
+
+
+podcast_generator.py is forked from [AI-Podcast-Generator](https://github.com/timonvanhasselt/AI-podcast-generator)
+
+## To do list
+Add coding assistant CLI (Sefia-code?) [NEXT]
+
+Cowork mode (Sefia-Work?) [FAR FUTURE]

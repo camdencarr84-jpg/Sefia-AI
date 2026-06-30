@@ -1,0 +1,6 @@
+edge_tts
+asyncio
+ollama
+librosa
+soundfile
+numpy
