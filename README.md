@@ -92,7 +92,12 @@ with open ("history.txt", "a") as h:
 
 podcast_generator.py is forked from [AI-Podcast-Generator](https://github.com/timonvanhasselt/AI-podcast-generator)
 
-## To do list
-Add coding assistant CLI (Sefia-code?) [FIRST PUBLIC BETA RELEASED!]
+
+```
+Notice:
+Sefia will be out of development until llama.cpp and lm studio integration (which I will be working towards)
+
+```
+
 
 Cowork mode (Sefia-Work?) [FAR FUTURE]
