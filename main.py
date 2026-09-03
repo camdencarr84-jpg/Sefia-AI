@@ -1,66 +1,76 @@
-from sefiaterm import term_run
-from sefiachat import chat
-from sefiahost import self_host
-from sefiapod import make_podcast
-from sefiatoken import analyze
-import time
+# Sefia-AI Chat simple, intuitive CLI 
+import getpass
+import pathlib
+import threading
+import os
+from openai import OpenAI
+class ChatConfiguration:
+    def providers(prov:str):
+        with open("./config/sefia/providers.txt", "a") as provs:
+            provs.write(prov)
+            
+    """
+    Anthropic API key setup.
+    """
+    def anth_setup():
+                print("Running setup tool for Anthropic")
+                print("Please enter your API key.")
+                openai_api_key = getpass.getpass(">")
+                with open (pathlib.Path("./config/sefia/anth_api_token", "a")) as openai_api_token:
+                    openai_api_token.write(openai_api_key)
+                print("Anthropic configured!")
+    """
+    OpenAI API key setup.
+    """
+    def openai_setup():
+                print("Running setup tool for OpenAI")
+                print("Please enter your API key.")
+                openai_api_key = getpass.getpass(">")
+                with open (pathlib.Path("./config/sefia/chatgpt_api_token", "a")) as openai_api_token:
+                    openai_api_token.write(openai_api_key)
+                print("ChatGPT configured!")
+                providers("ChatGPT")
+    """
+    OpenAI Compatible Setup
+    this is more tricky, as a few more params need to be configured. 
+    """
+    def openai_compatible_setup():
+                print("Running setup tool for Open AI Compatible API")
+                print("What is the name of the provider?")
+                name = input("> ")
+                if name.lower() == "ollama":
+                    url = "http://localhost:11434"
+                if name.lower() == "lm studio":
+                    url = "http://localhost:7394"
+                print(f"Is the server at: {url}? If not, please reply no. ")
+                ans = input("Y/N")
+                if ans.lower() == "y":
+                    pass
+                    
+                print("Please enter your API key (or blank if no auth).")
+                
+                openai_api_key = getpass.getpass(">")
+                with open (pathlib.Path(f"./config/sefia/{provider}_api_token", "a")) as openai_api_token:
+                    openai_api_token.write(openai_api_key)
+                with open (pathlib.Path(f"./config/sefia/{provider}_url_token", "a")) as openai_api_token:
+                    openai_api_token.write(url)
+                print(f"{provider} configured!")
+                providers(name)
+    def list_providers():
+        with open("./config/sefia/providers.txt") as providers:
+            pr = providers.read()
+            print(f"Available providers:\n {pr} ")
+class OpenAIChat:
+    def message(content, model):
+            response = client.responses.create(
 
-# telemetry = ""  
-# if telemetry == "":
-#     telemetry = input("Allow anyonomous telemetry? Before consenting, please review telemetry.py, it contains all the available data collected (Yes/No)") 
-#     if 'y' in telemetry:
-#         telemetry = 'on'
-#     else:
-#         telemetry = 'off'
-# ANSI Escape Codes for Colors
-GREEN = "\033[1;32m"
-RESET = "\033[0m"
-RED = "\033[1;31m"
-
-
-def print_octopus():
-    print(GREEN + r"""
-          _[_[ [ [ [_
-         /-----------\
-        /-------------\
-       /| {}    {}    | \
-     / /|             | \ \
-    / / | #  (<>)  #  |  \ \               WELCOME TO SEFIA
-   ( )  |             |   ( )             2.4 * Bug fixes
-           | | | | | |
-          ()()()()()()
-""" + RESET)
-if telemetry == 'on':
-    from telemetry import collect_telemetry
-    collect_telemetry() 
-def main():
-    print_octopus()
-
-    while True:
-        # ----------------------------------------------------------------------------------------#
-        print("Choose one:\n 1. Chat \n 3. Terminal \n 4. Self-host an Ollama Server to the web. \n 5. Generate an AI podcast\n 6. Exit the program. ")
-        oc = input(": ")
-
-        if oc == "1":
-            chat()
-        # ----------------------------------------------------------------------------------------#
-        if oc == "3":
-            term_run()
-        #---------------------------------------------------------------------------------------#
-        elif oc == "4":
-            self_host()
-        #----------------------------------------------------------------------------------------#
-        elif oc == "5":
-            make_podcast()
-      
-        # -----------------------------------------------------------------------------------------#
-        elif oc == "6":
-            print("Exiting! Have a nice day!")
-            time.sleep(2)
-            exit()
-        elif oc == "Credits":
-            return "Sefia is a CD Carr project, find his work at: https://github.com/camdencarr84-jpg"
-
-
-if __name__ == '__main__':
-    main()
+            model= model,
+            input=[
+            {
+                "role": "user",
+                "content": [
+                        {"type": "input_text", "text": content},
+                    ],
+            }
+        ],
+    )
